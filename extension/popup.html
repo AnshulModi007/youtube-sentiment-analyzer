@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Sentiment Analyzer</title>
+  <link rel="stylesheet" href="popup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-glow"></div>
+      <div class="logo-row">
+        <img src="icon128.png" alt="Logo" class="logo-icon">
+        <div>
+          <h1 class="title">Sentiment Analyzer</h1>
+          <p class="subtitle">YouTube Comments AI</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Video Info -->
+    <section class="section" id="video-section">
+      <div class="video-info" id="video-info">
+        <div class="video-badge" id="video-badge">
+          <span class="badge-dot"></span>
+          <span id="video-status-text">Detecting video…</span>
+        </div>
+        <p class="video-id" id="video-id-display"></p>
+      </div>
+      <div class="comment-count-row" id="comment-count-row" style="display:none">
+        <label for="comment-count">Max comments:</label>
+        <select id="comment-count">
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100" selected>100</option>
+        </select>
+      </div>
+      <button id="analyze-btn" class="btn btn-primary btn-full" disabled>
+        <span class="btn-text">⚡ Analyze Comments</span>
+        <span class="btn-loader" id="btn-loader"></span>
+      </button>
+    </section>
+
+    <!-- Results -->
+    <section class="section results-section" id="results-section" style="display:none">
+      <!-- Overall Sentiment -->
+      <div class="overall-card" id="overall-card">
+        <p class="overall-label">Overall Sentiment</p>
+        <h2 class="overall-value" id="overall-sentiment">—</h2>
+        <p class="overall-count" id="total-count">0 comments analyzed</p>
+      </div>
+
+      <!-- Distribution Bars -->
+      <div class="dist-card">
+        <div class="dist-row">
+          <span class="dist-label positive-text">😊 Positive</span>
+          <div class="bar-track">
+            <div class="bar-fill bar-positive" id="bar-positive" style="width:0%"></div>
+          </div>
+          <span class="dist-pct" id="pct-positive">0%</span>
+        </div>
+        <div class="dist-row">
+          <span class="dist-label neutral-text">😐 Neutral</span>
+          <div class="bar-track">
+            <div class="bar-fill bar-neutral" id="bar-neutral" style="width:0%"></div>
+          </div>
+          <span class="dist-pct" id="pct-neutral">0%</span>
+        </div>
+        <div class="dist-row">
+          <span class="dist-label negative-text">😠 Negative</span>
+          <div class="bar-track">
+            <div class="bar-fill bar-negative" id="bar-negative" style="width:0%"></div>
+          </div>
+          <span class="dist-pct" id="pct-negative">0%</span>
+        </div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="chart-card">
+        <canvas id="donut-chart" width="200" height="200"></canvas>
+      </div>
+
+      <!-- Comment list -->
+      <div class="comment-list" id="comment-list">
+        <!-- filled by JS -->
+      </div>
+    </section>
+
+    <!-- Error -->
+    <div class="error-toast" id="error-toast" style="display:none">
+      <span id="error-msg"></span>
+      <button class="toast-close" id="toast-close">✕</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
